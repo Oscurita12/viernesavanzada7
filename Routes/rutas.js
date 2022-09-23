@@ -16,12 +16,12 @@ rutasPersonalizadas.post('/hotelesflork/habitacion',controladorHabitacion.regist
 
 rutasPersonalizadas.put('/hotelesflork/habitacion',controladorHabitacion.editarHabitacion)
 
-rutasPersonalizadas.get('/hotelesflork/')
+rutasPersonalizadas.get('/hotelesflork/reservas',controladorReservas.buscarReservas)
 
-rutasPersonalizadas.get('/hotelesflork/')
+rutasPersonalizadas.get('/hotelesflork/reserva/:id',controladorReservas.buscarReservaPorId)
 
-rutasPersonalizadas.post('/hotelesflork/')
+rutasPersonalizadas.post('/hotelesflork/reserva',controladorReservas.registrarReserva)
 
-rutasPersonalizadas.put('/hotelesflork/')
+rutasPersonalizadas.put('/hotelesflork/reserva',controladorReservas.editarReserva)
 
-rutasPersonalizadas.delete('/hotelesflork/')
+rutasPersonalizadas.delete('/hotelesflork/reservadelete',controladorReservas.eliminarReserva)

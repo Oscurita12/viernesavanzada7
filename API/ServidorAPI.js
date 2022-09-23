@@ -2,10 +2,13 @@ import express from 'express' //Se importa express
 
 import {rutasPersonalizadas} from '../Routes/rutas.js'
 
+import { conectarConMongo } from '../Database/conexion.js'
+
 export class ServidorAPI {
 
     constructor(){
         this.app = express() //Atributo 
+        this.conectarConBD()
         this.atenderPeticiones()
 
     }
@@ -21,6 +24,8 @@ export class ServidorAPI {
         this.app.use('/', rutasPersonalizadas)
     }
 
-    conectarConBD(){}
+    conectarConBD(){
+        conectarConMongo()
+    }
 
 }
