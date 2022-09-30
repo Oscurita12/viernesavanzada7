@@ -9,8 +9,8 @@ export class ServidorAPI {
     constructor(){
         this.app = express() //Atributo 
         this.conectarConBD()
+        this.activarBody()
         this.atenderPeticiones()
-
     }
 
     //Métodos de la clase ServidorAPI
@@ -26,6 +26,10 @@ export class ServidorAPI {
 
     conectarConBD(){
         conectarConMongo()
+    }
+
+    activarBody(){
+        this.app.use(express.json())
     }
 
 }
