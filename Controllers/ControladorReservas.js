@@ -1,13 +1,17 @@
+import { ServicioReserva } from "../Services/ServicioReserva.js"
+
 export class ControladorReservas {
 
     constructor(){}
 
-    buscarReservas(request,response){
+    async buscarReservas(request,response){
+
+        let objetoServicioReserva = new ServicioReserva()
 
         try{
             response.status(200).json({
                 "mensaje":"exito en la reserva",
-                "datos":"Aquí va los datos de la reserva",
+                "datos":await objetoServicioReserva.buscarReservas()
             })
         }catch(error){
             response.status(400).json({
@@ -17,13 +21,14 @@ export class ControladorReservas {
         }
     }
 
-    buscarReservaPorId(request,response){
+    async buscarReservaPorId(request,response){
         let idreserva=request.params.idreserva
+        let objetoServicioReserva = new ServicioReserva()
         //console.log("el id de la reserva es: "+idreserva)
         try{
             response.status(200).json({
                 "mensaje":"exito en la reserva "+idreserva,
-                "datos":"Aquí va los datos de la reserva por id",
+                "datos":await objetoServicioReserva.buscarReservaPorId(idreserva),
             })
         }catch(error){
             response.status(400).json({
@@ -33,10 +38,12 @@ export class ControladorReservas {
         }
     }
 
-    registrarReserva(request,response){
+    async registrarReserva(request,response){
         let datosreserva=request.body
-        /* console.log(datosreserva) */
+        let objetoServicioReserva= new ServicioReserva()
+
         try{
+            await objetoServicioReserva.agregarReservaEnBD(datosreserva)
             response.status(200).json({
                 "mensaje":"exito registrando la reserva",
                 "datos":null,
@@ -49,14 +56,15 @@ export class ControladorReservas {
         }
     }
 
-    editarReserva(request,response){
+    async editarReserva(request,response){
         let idr = request.params.idreserva
         let datosReserva=request.body
-        console.log(idr,datosReserva)
+        let objetoServicioReserva = new ServicioReserva()
         try{
+            await objetoServicioReserva.editarReserva(idr,datosReserva)
             response.status(200).json({
                 "mensaje":"exito editando la reserva"+idr,
-                "datos":datosReserva,
+                "datos":null,
             })
         }catch(error){
             response.status(400).json({

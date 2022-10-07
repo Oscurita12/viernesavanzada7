@@ -21,7 +21,7 @@ rutasPersonalizadas.put('/hotelesflork/habitacion/:idHabitacion',controladorHabi
 
 rutasPersonalizadas.get('/hotelesflork/reservas',controladorReservas.buscarReservas)
 
-rutasPersonalizadas.get('/hotelesflork/reserva/:id',controladorReservas.buscarReservaPorId)
+rutasPersonalizadas.get('/hotelesflork/reserva/:idreserva',controladorReservas.buscarReservaPorId)
 
 rutasPersonalizadas.post('/hotelesflork/reserva',controladorReservas.registrarReserva)
 
