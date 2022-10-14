@@ -24,4 +24,8 @@ export class ServicioReserva{
         return await modeloReserva.findByIdAndUpdate(id,datos)
     }
 
+    async borrarReserva(id){
+        return await modeloReserva.findByIdAndDelete(id)
+    }
+
 }

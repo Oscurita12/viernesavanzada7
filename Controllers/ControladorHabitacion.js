@@ -28,26 +28,38 @@ export class ControladorHabitacion {
         try{
             response.status(200).json({
                 "mensaje":"exito en la consulta"+idhabitacion,
-                "datos":await objetoServicioHabitacion.buscarHabitacionPorId(idhabitacion),
+                "datos": await objetoServicioHabitacion.buscarHabitacionPorId(idhabitacion)
             })
         }catch(error){
             response.status(400).json({
                 "mensaje":"error en la consulta"+error,
-                "datos":null,
+                "datos":null
             })
         }
     }
 
     async registrarHabitacion(request,response){
-        let datoshabitacion=request.body
+        let datoshabitacion=request.body //Obtengo datos del body 
         let objetoServicioHabitacion=new ServicioHabitacion()
         
         try{
-            await objetoServicioHabitacion.agregarHabitacionEnBD(datoshabitacion)
-            response.status(200).json({
+            //console.log(datoshabitacion.numeroMaximoPersonas),, se utiliza para probar 
+            if(datoshabitacion.numeroMaximoPersonas<8){
+
+                await objetoServicioHabitacion.agregarHabitacionEnBD(datoshabitacion)
+
+                response.status(200).json({
                 "mensaje":"exito registrando habitacion",
                 "datos":null,
-            })
+                })
+
+            }else{
+                response.status(400).json({
+                    "mensaje":"Solo se permiten 8 personas en esta habitación",
+                    "datos":null,
+                    })
+            }
+            
         }catch(error){
             response.status(400).json({
                 "mensaje":"error en la consulta"+error,

@@ -27,4 +27,4 @@ rutasPersonalizadas.post('/hotelesflork/reserva',controladorReservas.registrarRe
 
 rutasPersonalizadas.put('/hotelesflork/reserva/:idreserva',controladorReservas.editarReserva)
 
-rutasPersonalizadas.delete('/hotelesflork/reservadelete',controladorReservas.eliminarReserva)
+rutasPersonalizadas.delete('/hotelesflork/reserva/:idreserva',controladorReservas.eliminarReserva)

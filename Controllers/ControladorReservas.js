@@ -1,4 +1,6 @@
 import { ServicioReserva } from "../Services/ServicioReserva.js"
+import { ServicioHabitacion } from "../Services/ServicioHabitacion.js"
+
 
 export class ControladorReservas {
 
@@ -41,17 +43,44 @@ export class ControladorReservas {
     async registrarReserva(request,response){
         let datosreserva=request.body
         let objetoServicioReserva= new ServicioReserva()
-
+        let objetoServicioHabitacion = new ServicioHabitacion()
+        console.log(datosreserva);
         try{
-            await objetoServicioReserva.agregarReservaEnBD(datosreserva)
-            response.status(200).json({
-                "mensaje":"exito registrando la reserva",
-                "datos":null,
-            })
+            let datos__habitacion = await objetoServicioHabitacion.buscarHabitacionPorId(datosreserva.idHabitacion)
+            let maxPersonas = datos__habitacion.numeroMaximoPersonas
+            let numeroPersonas = datosreserva.numeroNinos + datosreserva.numeroAdultos
+            let entrada = new Date(datosreserva.fechaEntrada)
+            let salida = new Date(datosreserva.fechaSalida)
+            const diffInDays = Math.floor((salida - entrada ) / (1000 * 60 * 60 * 24))+1;
+            if(diffInDays >0 ){
+                costo = Number(valorNoche)*Number(diffInDays);
+                if(maxPersonas >= numeroPersonas){
+                    response.status(200).json({
+                        "mensaje":"exito registrando la reserva",
+                        "datos":null,
+                    })
+                }else {
+                    response.status(400).json({
+                        "mensaje":"No caben tantas personas",
+                        "datos":null,
+                        "estado":true
+                    })
+                }
+                
+            }else {
+                response.status(400).json({
+                    "mensaje":"No se pueden reservar tantos días en esta habitación",
+                    "datos":null,
+                    "estado":true
+                })
+            }
+            //await objetoServicioReserva.agregarReservaEnBD(datosreserva)
+            
         }catch(error){
             response.status(400).json({
                 "mensaje":"error en la reserva"+error,
                 "datos":null,
+                "estado":true
             })
         }
     }
@@ -74,8 +103,12 @@ export class ControladorReservas {
         }
     }
 
-    eliminarReserva(request,response){
+     async eliminarReserva(request,response){
+        let id_del = request.params.idreserva
+        let objReserva =new ServicioReserva()
+        console.log(id_del)
         try{
+            await objReserva.borrarReserva(id_del)
             response.status(200).json({
                 "mensaje":"se eliminó correctamente la reserva",
                 "datos":null,
