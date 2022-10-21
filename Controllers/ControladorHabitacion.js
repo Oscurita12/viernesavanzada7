@@ -15,7 +15,7 @@ export class ControladorHabitacion {
             })
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la consulta"+error,
+                "mensaje":"error en la consulta "+error,
                 "datos":null,
             })
         }
@@ -27,12 +27,12 @@ export class ControladorHabitacion {
         //console.log("el id es: "+datosenviadosenurl)
         try{
             response.status(200).json({
-                "mensaje":"exito en la consulta"+idhabitacion,
+                "mensaje":"exito en la consulta "+idhabitacion,
                 "datos": await objetoServicioHabitacion.buscarHabitacionPorId(idhabitacion)
             })
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la consulta"+error,
+                "mensaje":"error en la consulta "+error,
                 "datos":null
             })
         }
@@ -62,7 +62,7 @@ export class ControladorHabitacion {
             
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la consulta"+error,
+                "mensaje":"error en la consulta "+error,
                 "datos":null,
             })
         }
@@ -77,12 +77,12 @@ export class ControladorHabitacion {
         try{
             await objetoServicioHabitacion.editarHabitacion(id,datosEditar)
             response.status(200).json({
-                "mensaje":"exito editando la habitacion"+id,
+                "mensaje":"exito editando la habitacion "+id,
                 "datos":null,
             })
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la consulta"+error,
+                "mensaje":"error en la consulta "+error,
                 "datos":null,
             })
         }

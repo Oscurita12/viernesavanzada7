@@ -17,7 +17,7 @@ export class ControladorReservas {
             })
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la reserva"+error,
+                "mensaje":"error en la reserva "+error,
                 "datos":null,
             })
         }
@@ -34,7 +34,7 @@ export class ControladorReservas {
             })
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la reserva"+error,
+                "mensaje":"error en la reserva "+error,
                 "datos":null,
             })
         }
@@ -48,11 +48,12 @@ export class ControladorReservas {
         try{
             let datos__habitacion = await objetoServicioHabitacion.buscarHabitacionPorId(datosreserva.idHabitacion)
             let maxPersonas = datos__habitacion.numeroMaximoPersonas
-            let numeroPersonas = datosreserva.numeroNinos + datosreserva.numeroAdultos
+            let numeroPersonas = Number(datosreserva.numeroNinos) + Number(datosreserva.numeroAdultos)
             let entrada = new Date(datosreserva.fechaEntrada)
             let salida = new Date(datosreserva.fechaSalida)
             const diffInDays = Math.floor((salida - entrada ) / (1000 * 60 * 60 * 24));
             let costo=0
+            console.log("numero personas ",maxPersonas , numeroPersonas);
             if(diffInDays >0 ){
                 if(maxPersonas >= numeroPersonas){
                     costo = Number(datos__habitacion.valorNoche)*Number(diffInDays);
@@ -80,7 +81,7 @@ export class ControladorReservas {
             
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la reserva"+error,
+                "mensaje":"error en la reserva "+error,
                 "datos":null,
                 "estado":true
             })
@@ -94,12 +95,12 @@ export class ControladorReservas {
         try{
             await objetoServicioReserva.editarReserva(idr,datosReserva)
             response.status(200).json({
-                "mensaje":"exito editando la reserva"+idr,
+                "mensaje":"exito editando la reserva "+idr,
                 "datos":null,
             })
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la reserva"+error,
+                "mensaje":"error en la reserva "+error,
                 "datos":null,
             })
         }
@@ -117,7 +118,7 @@ export class ControladorReservas {
             })
         }catch(error){
             response.status(400).json({
-                "mensaje":"error en la reserva"+error,
+                "mensaje":"error en la reserva "+error,
                 "datos":null,
             })
         }
